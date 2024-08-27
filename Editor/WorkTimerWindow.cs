@@ -8,7 +8,6 @@ namespace WT
     public class WorkTimerWindow : EditorWindow
     {
         static private WTParamaterData data;
-        const double INTERVAL = 10.0;
         static double previousTime;
         static private double startupTime = 0;
         static private double totalTime = 0;
@@ -59,9 +58,9 @@ namespace WT
         private string FormatTimeString( double time )
         {
             var second = time % 60.0f;
-            var minute = time / 60.0f;
+            var minute = (int)(time / 60.0f) % 60;
             var hour = time / 60.0f / 60.0f;
-            return String.Format("{0}:{1:00}:{2:00}", (int)hour, (int)minute % 60, (int)second);
+            return String.Format("{0}:{1:00}:{2:00}", (int)hour, (int)minute, (int)second);
         }
 
         static WTParamaterData LoadData()
