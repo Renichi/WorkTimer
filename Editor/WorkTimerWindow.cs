@@ -11,6 +11,7 @@ namespace WT
         static double previousTime;
         static private double startupTime = 0;
         static private double totalTime = 0;
+        static private bool isRest = true;
 
         [InitializeOnLoadMethod]
         static void AutoStart()
@@ -28,9 +29,10 @@ namespace WT
         {
             double time = EditorApplication.timeSinceStartup;
             double deltaTime = time - previousTime;
+            previousTime = time;
+            if( isRest ) return;
             startupTime += deltaTime;
             totalTime += deltaTime;
-            previousTime = time;
             data.TotalTime = totalTime;
             EditorUtility.SetDirty(data);
         }
@@ -54,6 +56,7 @@ namespace WT
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("StartUp Time", FormatTimeString( startupTime ));
             EditorGUILayout.LabelField("Totla Time", FormatTimeString( totalTime ));
+            if( GUILayout.Button(  isRest? "Work Time" : "Break Time" ) ) isRest = !isRest;
         }
 
         private string FormatTimeString( double time )
