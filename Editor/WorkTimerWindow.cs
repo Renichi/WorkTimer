@@ -18,7 +18,7 @@ namespace WT
             if (data == null)
             {
                 data = LoadData();
-                totalTime += data.TotalTime;
+                totalTime = data.TotalTime;
             }
             startupTime = 0;
             EditorApplication.update += EditorUpdateCallback;
@@ -49,6 +49,7 @@ namespace WT
 
         private void OnGUI()
         {
+            if (data == null) return;
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("StartUp Time", FormatTimeString( startupTime ));
@@ -59,7 +60,7 @@ namespace WT
         {
             var second = time % 60.0f;
             var minute = (int)(time / 60.0f) % 60;
-            var hour = time / 60.0f / 60.0f;
+            var hour = ((int)((int)time / 60.0f)) / 60.0f;
             return String.Format("{0}:{1:00}:{2:00}", (int)hour, (int)minute, (int)second);
         }
 
