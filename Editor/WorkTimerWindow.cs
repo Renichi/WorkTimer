@@ -11,7 +11,7 @@ namespace WT
         static double previousTime;
         static private double startupTime = 0;
         static private double totalTime = 0;
-        static private bool isRest = true;
+        static private bool isRest;
 
         [InitializeOnLoadMethod]
         static void AutoStart()
